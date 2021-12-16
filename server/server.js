@@ -19,6 +19,7 @@ app.use(express.json());
 
 // Routes
 app.use(require('./routes/index.routes'));
+app.use(require('./routes/clients.routes'));
 
 // Webserver
 app.listen(process.env.APP_PORT, () => {

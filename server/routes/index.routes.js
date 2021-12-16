@@ -10,14 +10,14 @@ const router = Router();
 router.get('/', executeIndex);
 
 // Error handling
+/*
 router.use((req, res, next) => {
     let error = 'Route not found';
     logger.error(`400 || ${ error } - ${ req.originalUrl } - ${ req.method } - ${ req.ip }`);
     res.status(404).json({
-        ok: false,
-        result: "error",
         message: error
     });
 });
+*/
 
 module.exports = router;
