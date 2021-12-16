@@ -16,7 +16,7 @@ clientController.saveClient = async(req, res, next) => {
     if (typeof req.body === 'undefined') {
         errors.push({ error: "request body can't be empty" });
     } else {
-        // Company name
+        // Check validations
         errors = errors.concat(validate.validateCompanyName(company_name));
         errors = errors.concat(validate.validateInternalCode(internal_code));
         errors = errors.concat(validate.validateTaxId(tax_id))
