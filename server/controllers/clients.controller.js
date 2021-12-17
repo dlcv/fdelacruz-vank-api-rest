@@ -1,4 +1,4 @@
-const { Client } = require('../config/database');
+const { Client, ClientBank, Bank } = require('../config/database');
 const { logger } = require('../config/logs');
 const validate = require('../middlewares/validations');
 
@@ -11,19 +11,19 @@ clientController.saveClient = async(req, res, next) => {
     let errors = [];
 
     // Data from request
-    const { company_name, internal_code, tax_id, currency, api_quota, bank_id } = req.body;
+    const { companyName, internalCode, taxId, currency, apiQuota, banks } = req.body;
 
     // Validations
     if (typeof req.body === 'undefined') {
         errors.push({ error: "request body can't be empty" });
     } else {
         // Check validations
-        errors = errors.concat(validate.validateCompanyName(company_name));
-        errors = errors.concat(validate.validateInternalCode(internal_code));
-        errors = errors.concat(validate.validateTaxId(tax_id))
+        errors = errors.concat(validate.validateCompanyName(companyName));
+        errors = errors.concat(validate.validateInternalCode(internalCode));
+        errors = errors.concat(validate.validateTaxId(taxId))
         errors = errors.concat(validate.validateCurrency(currency))
-        errors = errors.concat(validate.validateAPIQuota(api_quota))
-        errors = errors.concat(validate.validateBankID(bank_id))
+        errors = errors.concat(validate.validateAPIQuota(apiQuota))
+        errors = errors.concat(validate.validateBanksID(banks))
     }
 
     if (errors.length > 0) {
@@ -37,7 +37,22 @@ clientController.saveClient = async(req, res, next) => {
 
     } else {
         try {
-            let client = await Client.create(req.body);
+            let client = await Client.create({
+                companyName,
+                internalCode,
+                taxId,
+                currency,
+                apiQuota
+            });
+
+            // Add banksId to client
+            banks.forEach(element => {
+                Bank.create({
+                    bankId: element,
+                    clientId: client.id
+                })
+            });
+
             let message = "Client created successfully";
             logger.info(`201 || ${ message } - ${ req.originalUrl } - ${ req.method } - ${ req.ip }`);
             return res.status(201).json({
@@ -59,14 +74,14 @@ clientController.updateClient = async(req, res, next) => {
     let errors = [];
 
     // Data from request
-    const { tax_id, currency } = req.body;
+    const { taxId, currency } = req.body;
 
     // Validations
     if (typeof req.body === 'undefined') {
         errors.push({ error: "request body can't be empty" });
     } else {
         // Check validations
-        errors = errors.concat(validate.validateTaxId(tax_id))
+        errors = errors.concat(validate.validateTaxId(taxId))
         errors = errors.concat(validate.validateCurrency(currency))
     }
 
@@ -103,17 +118,15 @@ clientController.updateClient = async(req, res, next) => {
 
 // Get all clients
 clientController.getAllClients = async(req, res, next) => {
-    const clients = await Client.findAll();
+    const clients = await Client.findAll({
+        include: ["bank"],
+    });
     return res.json(clients);
 };
 
 // Get one clients
 clientController.getOneClient = async(req, res, next) => {
-    const client = await Client.findAll({
-        where: {
-            id: req.params.id
-        }
-    });
+    const client = await Client.findByPk(req.params.id, { include: ["bank"] });
     return res.json(client);
 };
 

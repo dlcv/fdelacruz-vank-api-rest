@@ -1,7 +1,8 @@
 require('dotenv').config();
 
-const Sequelize = require('sequelize')
-const ClientModel = require('../models/client');
+const Sequelize = require('sequelize');
+const BankModel = require('../models/bank.model');
+const ClientModel = require('../models/client.model');
 
 // DATABASE HOST
 const DB_HOST = process.env.DB_HOST;
@@ -28,11 +29,19 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
 })
 
 const Client = ClientModel(sequelize, Sequelize);
+const Bank = BankModel(sequelize, Sequelize);
+
+Client.hasMany(Bank, { as: "bank" });
+Bank.belongsTo(Client, {
+    foreignKey: "clientId",
+    as: "client",
+});
 
 sequelize.sync({ force: false }).then(() => {
     console.log('Sync tables')
 })
 
 module.exports = {
-    Client
+    Client,
+    Bank
 }

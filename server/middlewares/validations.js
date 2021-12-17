@@ -1,17 +1,17 @@
 // Validate company name
-function validateCompanyName(company_name) {
+function validateCompanyName(companyName) {
     let errors = [];
-    if (typeof company_name === 'undefined') {
-        errors.push({ error: "company_name must be defined in request body" });
+    if (typeof companyName === 'undefined') {
+        errors.push({ error: "companyName must be defined in request body" });
     } else {
-        if (typeof company_name != 'string') {
-            errors.push({ error: "company_name isn't a string, please send it in a string format" });
+        if (typeof companyName != 'string') {
+            errors.push({ error: "companyName isn't a string, please send it in a string format" });
         } else {
-            if ((company_name.trim().length === 0) || (company_name.trim() === '')) {
-                errors.push({ error: "company_name can't be null" });
+            if ((companyName.trim().length === 0) || (companyName.trim() === '')) {
+                errors.push({ error: "companyName can't be null" });
             }
-            if ((company_name.length < 2) || (company_name.length > 50)) {
-                errors.push({ error: "company_name lenght is invalid, must be between 2 and 50 characters" });
+            if ((companyName.length < 2) || (companyName.length > 50)) {
+                errors.push({ error: "companyName lenght is invalid, must be between 2 and 50 characters" });
             }
         }
     }
@@ -19,19 +19,19 @@ function validateCompanyName(company_name) {
 }
 
 // Validate internal code
-function validateInternalCode(internal_code) {
+function validateInternalCode(internalCode) {
     let errors = [];
-    if (typeof internal_code === 'undefined') {
-        errors.push({ error: "internal_code must be defined in request body" });
+    if (typeof internalCode === 'undefined') {
+        errors.push({ error: "internalCode must be defined in request body" });
     } else {
-        if (typeof internal_code != 'string') {
-            errors.push({ error: "internal_code isn't a string, please send it in a string format" });
+        if (typeof internalCode != 'string') {
+            errors.push({ error: "internalCode isn't a string, please send it in a string format" });
         } else {
-            if ((internal_code.trim().length === 0) || (internal_code.trim() === '')) {
-                errors.push({ error: "internal_code can't be null" });
+            if ((internalCode.trim().length === 0) || (internalCode.trim() === '')) {
+                errors.push({ error: "internalCode can't be null" });
             }
-            if ((internal_code.length < 2) || (internal_code.length > 10)) {
-                errors.push({ error: "internal_code lenght is invalid, must be between 2 and 10 characters" });
+            if ((internalCode.length < 2) || (internalCode.length > 10)) {
+                errors.push({ error: "internalCode lenght is invalid, must be between 2 and 10 characters" });
             }
         }
     }
@@ -39,19 +39,19 @@ function validateInternalCode(internal_code) {
 }
 
 // Validate tax ID
-function validateTaxId(tax_id) {
+function validateTaxId(taxId) {
     let errors = [];
-    if (typeof tax_id === 'undefined') {
-        errors.push({ error: "tax_id must be defined in request body" });
+    if (typeof taxId === 'undefined') {
+        errors.push({ error: "taxId must be defined in request body" });
     } else {
-        if (typeof tax_id != 'string') {
-            errors.push({ error: "tax_id isn't a string, please send it in a string format" });
+        if (typeof taxId != 'string') {
+            errors.push({ error: "taxId isn't a string, please send it in a string format" });
         } else {
-            if ((tax_id.trim().length === 0) || (tax_id.trim() === '')) {
-                errors.push({ error: "tax_id can't be null" });
+            if ((taxId.trim().length === 0) || (taxId.trim() === '')) {
+                errors.push({ error: "taxId can't be null" });
             }
-            if ((tax_id.length < 2) || (tax_id.length > 10)) {
-                errors.push({ error: "tax_id lenght is invalid, must be between 2 and 10 characters" });
+            if ((taxId.length < 2) || (taxId.length > 10)) {
+                errors.push({ error: "taxId lenght is invalid, must be between 2 and 10 characters" });
             }
         }
     }
@@ -84,19 +84,19 @@ function validateCurrency(currency) {
 }
 
 // Validate API quota
-function validateAPIQuota(api_quota) {
+function validateAPIQuota(apiQuota) {
     let errors = [];
-    if (typeof api_quota === 'undefined') {
-        errors.push({ error: "api_quota must be defined in request body" });
+    if (typeof apiQuota === 'undefined') {
+        errors.push({ error: "apiQuota must be defined in request body" });
     } else {
-        if (typeof api_quota != 'number') {
-            errors.push({ error: "api_quota isn't a number, please send it in a number format without quotes" });
+        if (typeof apiQuota != 'number') {
+            errors.push({ error: "apiQuota isn't a number, please send it in a number format without quotes" });
         } else {
-            if (api_quota < 1) {
-                errors.push({ error: "api_quota can't be zero or negative" });
+            if (apiQuota < 1) {
+                errors.push({ error: "apiQuota can't be zero or negative" });
             }
-            if (api_quota > 100) {
-                errors.push({ error: "api_quota can't be greater than 100" });
+            if (apiQuota > 100) {
+                errors.push({ error: "apiQuota can't be greater than 100" });
             }
         }
     }
@@ -104,21 +104,18 @@ function validateAPIQuota(api_quota) {
 }
 
 // Validate bank id's
-function validateBankID(bank_id) {
+function validateBanksID(banksId) {
     let errors = [];
-    if (typeof bank_id === 'undefined') {
-        errors.push({ error: "bank_id must be defined in request body" });
+    if (typeof banksId === 'undefined') {
+        errors.push({ error: "banksId must be defined in request body" });
     } else {
-        if (Array.isArray(bank_id) == false) {
-            errors.push({ error: "bank_id isn't a array, please send it in a array format" });
+        if (Array.isArray(banksId) == false) {
+            errors.push({ error: "banksId isn't a array, please send it in a array format" });
         } else {
             let counter = 0;
-            bank_id.forEach(element => {
-                if (!/^\d+$/.test(element)) {
-                    errors.push({ error: "bank_id at index [" + counter.toString() + "] have a invalid format: only send numbers in the string" });
-                }
-                if (parseInt(element) < 1) {
-                    errors.push({ error: "bank_id at index [" + counter.toString() + "] is invalid, must be greater than zero" });
+            banksId.forEach(element => {
+                if (element < 1) {
+                    errors.push({ error: "banksId at index [" + counter.toString() + "] is invalid, must be greater than zero" });
                 }
                 counter++;
             });
@@ -133,5 +130,5 @@ module.exports = {
     validateTaxId,
     validateCurrency,
     validateAPIQuota,
-    validateBankID
+    validateBanksID
 }
