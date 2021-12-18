@@ -22,7 +22,10 @@ app.use(require('./routes/index.routes'));
 app.use(require('./routes/clients.routes'));
 
 // Database
-require('./config/database')
+require('./config/database');
+
+// Scheduler
+require('./config/scheduler');
 
 // Webserver
 app.listen(process.env.APP_PORT, () => {
