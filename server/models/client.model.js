@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-    var Client = sequelize.define('client', {
+    var Client = sequelize.define("client", {
         id: {
             type: type.INTEGER,
             primaryKey: true,
@@ -9,21 +9,21 @@ module.exports = (sequelize, type) => {
             type: type.STRING(50),
             allowNull: false,
             unique: {
-                msg: 'companyName should be unique'
+                msg: "companyName should be unique"
             }
         },
         internalCode: {
             type: type.STRING(10),
             allowNull: false,
             unique: {
-                msg: 'internalCode should be unique'
+                msg: "internalCode should be unique"
             }
         },
         taxId: {
             type: type.STRING(10),
             allowNull: false,
             unique: {
-                msg: 'taxId should be unique'
+                msg: "taxId should be unique"
             }
         },
         currency: {

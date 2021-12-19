@@ -1,6 +1,6 @@
-const { Client, ClientBank, Bank } = require('../config/database');
-const { logger } = require('../config/logs');
-const validate = require('../middlewares/validations');
+const { logger } = require("../config/logs");
+const validate = require("../middlewares/validations");
+const { Client, Bank } = require("../config/database");
 
 // Module
 const clientController = {};
@@ -14,7 +14,7 @@ clientController.saveClient = async(req, res, next) => {
     const { companyName, internalCode, taxId, currency, apiQuota, banks } = req.body;
 
     // Validations
-    if (typeof req.body === 'undefined') {
+    if (typeof req.body === "undefined") {
         errors.push({ error: "request body can't be empty" });
     } else {
         // Check validations
@@ -77,7 +77,7 @@ clientController.updateClient = async(req, res, next) => {
     const { taxId, currency } = req.body;
 
     // Validations
-    if (typeof req.body === 'undefined') {
+    if (typeof req.body === "undefined") {
         errors.push({ error: "request body can't be empty" });
     } else {
         // Check validations

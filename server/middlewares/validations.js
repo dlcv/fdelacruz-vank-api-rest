@@ -1,13 +1,13 @@
 // Validate company name
 function validateCompanyName(companyName) {
     let errors = [];
-    if (typeof companyName === 'undefined') {
+    if (typeof companyName === "undefined") {
         errors.push({ error: "companyName must be defined in request body" });
     } else {
-        if (typeof companyName != 'string') {
+        if (typeof companyName != "string") {
             errors.push({ error: "companyName isn't a string, please send it in a string format" });
         } else {
-            if ((companyName.trim().length === 0) || (companyName.trim() === '')) {
+            if ((companyName.trim().length === 0) || (companyName.trim() === "")) {
                 errors.push({ error: "companyName can't be null" });
             }
             if ((companyName.length < 2) || (companyName.length > 50)) {
@@ -21,13 +21,13 @@ function validateCompanyName(companyName) {
 // Validate internal code
 function validateInternalCode(internalCode) {
     let errors = [];
-    if (typeof internalCode === 'undefined') {
+    if (typeof internalCode === "undefined") {
         errors.push({ error: "internalCode must be defined in request body" });
     } else {
-        if (typeof internalCode != 'string') {
+        if (typeof internalCode != "string") {
             errors.push({ error: "internalCode isn't a string, please send it in a string format" });
         } else {
-            if ((internalCode.trim().length === 0) || (internalCode.trim() === '')) {
+            if ((internalCode.trim().length === 0) || (internalCode.trim() === "")) {
                 errors.push({ error: "internalCode can't be null" });
             }
             if ((internalCode.length < 2) || (internalCode.length > 10)) {
@@ -41,13 +41,13 @@ function validateInternalCode(internalCode) {
 // Validate tax ID
 function validateTaxId(taxId) {
     let errors = [];
-    if (typeof taxId === 'undefined') {
+    if (typeof taxId === "undefined") {
         errors.push({ error: "taxId must be defined in request body" });
     } else {
-        if (typeof taxId != 'string') {
+        if (typeof taxId != "string") {
             errors.push({ error: "taxId isn't a string, please send it in a string format" });
         } else {
-            if ((taxId.trim().length === 0) || (taxId.trim() === '')) {
+            if ((taxId.trim().length === 0) || (taxId.trim() === "")) {
                 errors.push({ error: "taxId can't be null" });
             }
             if ((taxId.length < 2) || (taxId.length > 10)) {
@@ -61,21 +61,21 @@ function validateTaxId(taxId) {
 // Validate currency
 function validateCurrency(currency) {
     let errors = [];
-    if (typeof currency === 'undefined') {
+    if (typeof currency === "undefined") {
         errors.push({ error: "currency must be defined in request body" });
     } else {
-        if (typeof currency != 'string') {
+        if (typeof currency != "string") {
             errors.push({ error: "currency isn't a string, please send it in a string format" });
         } else {
-            if ((currency.trim().length === 0) || (currency.trim() === '')) {
+            if ((currency.trim().length === 0) || (currency.trim() === "")) {
                 errors.push({ error: "currency can't be null" });
             }
             if (currency.length != 3) {
                 errors.push({ error: "currency lenght is invalid, must be 3 characters" });
             }
-            const values = ['USD', 'EUR', 'CLP'];
+            const values = ["USD", "EUR", "CLP"];
             const found = values.find(element => element == currency.toUpperCase());
-            if (typeof found === 'undefined') {
+            if (typeof found === "undefined") {
                 errors.push({ error: "currency value is invalid: must be USD, EUR or CLP" });
             }
         }
@@ -86,10 +86,10 @@ function validateCurrency(currency) {
 // Validate API quota
 function validateAPIQuota(apiQuota) {
     let errors = [];
-    if (typeof apiQuota === 'undefined') {
+    if (typeof apiQuota === "undefined") {
         errors.push({ error: "apiQuota must be defined in request body" });
     } else {
-        if (typeof apiQuota != 'number') {
+        if (typeof apiQuota != "number") {
             errors.push({ error: "apiQuota isn't a number, please send it in a number format without quotes" });
         } else {
             if (apiQuota < 1) {
@@ -103,10 +103,10 @@ function validateAPIQuota(apiQuota) {
     return errors;
 }
 
-// Validate bank id's
+// Validate bank id"s
 function validateBanksID(banksId) {
     let errors = [];
-    if (typeof banksId === 'undefined') {
+    if (typeof banksId === "undefined") {
         errors.push({ error: "banksId must be defined in request body" });
     } else {
         if (Array.isArray(banksId) == false) {

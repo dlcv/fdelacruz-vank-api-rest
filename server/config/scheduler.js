@@ -1,15 +1,17 @@
 const fs = require("fs");
 const https = require("https");
 
-const schedule = require('node-schedule');
+const schedule = require("node-schedule");
+
+const invoiceController = require("../controllers/invoice.controller")
 
 const rule = new schedule.RecurrenceRule();
 // rule.hour = 0;
 rule.second = 0;
 
 
-// Directory for CSV's files
-var dir = './csv';
+// Directory for CSV"s files
+var dir = "./csv";
 
 // Create directory if not exist
 if (!fs.existsSync(dir)) {
@@ -24,13 +26,16 @@ const url = "https://gist.githubusercontent.com/rogelio-meza-t/f70a484ec20b8ea43
 
 // Job
 const Job = schedule.scheduleJob(rule, function() {
+    console.log("Init schedule job");
     // Get external file
     https.get(url, response => {
+        console.log("Getting external CSV file");
         // Write local file
         var stream = response.pipe(file);
         // Finish
         stream.on("finish", function() {
             console.log("Readed invoices from URL");
+            invoiceController.processInvoicesFromFile();
         });
     });
 });

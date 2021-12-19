@@ -1,4 +1,4 @@
-const { logger } = require('../config/logs');
+const { logger } = require("../config/logs");
 
 // Module
 const indexController = {};

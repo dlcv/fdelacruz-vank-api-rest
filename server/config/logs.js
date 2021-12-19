@@ -1,10 +1,10 @@
-const winston = require('winston');
+const winston = require("winston");
 
 // Logger configuration
 const logConfiguration = {
-    'transports': [
+    "transports": [
         new winston.transports.File({
-            filename: 'logs/server.log'
+            filename: "logs/server.log"
         })
     ],
     format: winston.format.combine(
@@ -12,7 +12,7 @@ const logConfiguration = {
             label: `${ process.env.APP_NAME }`
         }),
         winston.format.timestamp({
-            format: 'MMM-DD-YYYY HH:mm:ss'
+            format: "MMM-DD-YYYY HH:mm:ss"
         }),
         winston.format.printf(info => `${ info.level } - ${ info.label } -  ${ [info.timestamp] }: ${ info.message }`),
     )

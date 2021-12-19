@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-    var Invoice = sequelize.define('invoice', {
+    var Invoice = sequelize.define("invoice", {
         id: {
             type: type.INTEGER,
             primaryKey: true,

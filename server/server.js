@@ -1,8 +1,8 @@
-require('./config/app');
-const { logger } = require('./config/logs');
+require("./config/app");
+const { logger } = require("./config/logs");
 
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 const app = express();
 
 // CORS configuration
@@ -18,17 +18,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
-app.use(require('./routes/index.routes'));
-app.use(require('./routes/clients.routes'));
+app.use(require("./routes/index.routes"));
+app.use(require("./routes/clients.routes"));
 
 // Database
-require('./config/database');
+require("./config/database");
 
 // Scheduler
-require('./config/scheduler');
+require("./config/scheduler");
 
 // Webserver
 app.listen(process.env.APP_PORT, () => {
-    console.log('Listening port: ', process.env.APP_PORT);
+    console.log("Listening port: ", process.env.APP_PORT);
     logger.info(`Server started and running on ${process.env.SERVER_URL}:${process.env.APP_PORT}`);
 });

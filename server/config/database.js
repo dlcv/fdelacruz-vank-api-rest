@@ -1,8 +1,9 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const Sequelize = require('sequelize');
-const BankModel = require('../models/bank.model');
-const ClientModel = require('../models/client.model');
+const Sequelize = require("sequelize");
+const BankModel = require("../models/bank.model");
+const ClientModel = require("../models/client.model");
+const InvoiceModel = require("../models/invoice.model");
 
 // DATABASE HOST
 const DB_HOST = process.env.DB_HOST;
@@ -25,11 +26,13 @@ const DB_DIALECT = process.env.DB_DIALECT;
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
     host: DB_HOST,
     port: DB_PORT,
-    dialect: DB_DIALECT
+    dialect: DB_DIALECT,
+    logging: false
 })
 
-const Client = ClientModel(sequelize, Sequelize);
 const Bank = BankModel(sequelize, Sequelize);
+const Client = ClientModel(sequelize, Sequelize);
+const Invoice = InvoiceModel(sequelize, Sequelize);
 
 Client.hasMany(Bank, { as: "bank" });
 Bank.belongsTo(Client, {
@@ -38,10 +41,11 @@ Bank.belongsTo(Client, {
 });
 
 sequelize.sync({ force: false }).then(() => {
-    console.log('Sync tables')
+    console.log("Sync tables")
 })
 
 module.exports = {
+    Bank,
     Client,
-    Bank
+    Invoice
 }
