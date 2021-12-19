@@ -3,11 +3,17 @@ require("dotenv").config();
 const fs = require("fs");
 const https = require("https");
 const schedule = require("node-schedule");
+const { logger } = require("../config/logs");
 const invoiceController = require("../controllers/invoices.controller");
 
+// Rules for scheduling
 const rule = new schedule.RecurrenceRule();
-// rule.hour = 0;
-rule.second = 0;
+if (process.env.APP_UPDATE_CSV_EVERY_MINUTE.toString() === "YES") {
+    rule.second = 0; // Update everytime that seconds in clock is equal to 0
+} else {
+    rule.hour = Number(process.env.APP_UPDATE_CSV_SCHEDULE_HOUR);
+    rule.minute = Number(process.env.APP_UPDATE_CSV_SCHEDULE_MINUTE);
+}
 
 // Create directory if not exist
 if (!fs.existsSync(process.env.APP_CSV_DIR_PATH)) {
@@ -19,15 +25,21 @@ const file = fs.createWriteStream(process.env.APP_CSV_DIR_PATH + "/" + process.e
 
 // Job
 const Job = schedule.scheduleJob(rule, function() {
-    console.log("Init schedule job");
+    let msg = "Init schedule job";
+    console.log(msg);
+    logger.info(msg);
     // Get external file
     https.get(process.env.APP_EXTERNAL_CSV_URL, response => {
-        console.log("Getting external CSV file");
+        let msg = "Getting external CSV file";
+        console.log(msg);
+        logger.info(msg);
         // Write local file
         var stream = response.pipe(file);
         // Finish
         stream.on("finish", function() {
-            console.log("Readed invoices from URL");
+            let msg = "Readed invoices from external CSV file";
+            console.log(msg);
+            logger.info(msg);
             invoiceController.processInvoicesFromFile();
         });
     });

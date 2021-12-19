@@ -1,9 +1,10 @@
-const { logger } = require("../config/logs");
-const { Invoice } = require("../config/database");
+require("dotenv").config();
 
 const fs = require("fs");
 const csv = require("csv-parser");
 const { rejects } = require("assert");
+const { logger } = require("../config/logs");
+const { Invoice } = require("../config/database");
 
 // Module
 const invoiceController = {};
@@ -30,39 +31,29 @@ invoiceController.getInvoices = async(req, res, next) => {
 // Private functions
 
 function countInvoicesFromFile() {
-    const data = fs.readFileSync("./csv/invoices.csv").toString();
-    console.log("CSV: ", data.split("\n").length - 1);
-    return data.split("\n").length - 1; // Removed header"s file
+    const data = fs.readFileSync(process.env.APP_CSV_DIR_PATH + "/" + process.env.APP_CSV_FILE_NAME).toString();
+    let c = data.split("\n").length - 1; // Remove one line because the file have headers
+    let msg = `There are ${ c } invoices in external CSV file`
+    console.log(msg);
+    logger.info(msg);
+    return c;
 }
 
 const countInvoicesFromDB = () => {
     return new Promise((resolve, reject) => {
         Invoice.count().then(c => {
-            console.log("There are " + c + " invoices!")
+            let msg = `There are ${ c } invoices in the database`
+            console.log(msg);
+            logger.info(msg);
             resolve(c);
         });
     });
-
-    // try {
-    //     let rows = await Invoice.count().then(c => {
-    //         // console.log("There are " + c + " projects!")
-    //         rows = c;
-    //     });
-    //     console.log("DB: ", rows);
-    //     return rows;
-    // } catch (error) {
-    //     logger.error(`500 || ${ error.message }`);
-    // }
-
 }
 
 // Process CSV from file
 function processInvoicesFromFile() {
-    // Variables
-    let rowsCSV;
-
     // Count rows in file
-    rowsCSV = countInvoicesFromFile();
+    let rowsCSV = countInvoicesFromFile();
 
     // Count rows in database
     countInvoicesFromDB().then((rowsDB) => {
@@ -88,10 +79,14 @@ function processInvoicesFromFile() {
                     });
                 })
                 .on("end", () => {
-                    logger.info(`CSV file successfully processed`);
+                    let msg = `CSV file successfully processed`;
+                    console.log(msg);
+                    logger.info(msg);
                 });
         } else {
-            logger.info(`CSV file skipped, don't have changes`);
+            let msg = `CSV file skipped, don't have changes`;
+            console.log(msg);
+            logger.info(msg);
         }
     }, (rowsCSV) => {
         console.log("Error");
