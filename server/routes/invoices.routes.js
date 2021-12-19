@@ -1,12 +1,11 @@
 const { Router } = require("express");
-const { logger } = require("../config/logs");
 // const { verifyToken, verifyAPIKey } = require("../middlewares/auth");
 
-const { getInvoices } = require("../controllers/invoices.controller");
+const { getAllInvoices } = require("../controllers/invoices.controller");
 
 const router = Router();
 
-// Client routes
-router.get("/api/v1/invoice/:currency", getInvoices);
+// Invoices routes
+router.get("/api/v1/invoice/", getAllInvoices);
 
 module.exports = router;

@@ -14,7 +14,7 @@ module.exports = (sequelize, type) => {
             allowNull: false
         },
         invoiceDate: {
-            type: type.STRING(10),
+            type: type.DATEONLY,
             allowNull: false,
         },
         invoiceTotal: {
@@ -34,11 +34,11 @@ module.exports = (sequelize, type) => {
             allowNull: false
         },
         invoiceDueDate: {
-            type: type.STRING(10),
+            type: type.DATEONLY,
             allowNull: false,
         },
         paymentDate: {
-            type: type.STRING(10),
+            type: type.DATEONLY,
             allowNull: false,
         },
         currency: {

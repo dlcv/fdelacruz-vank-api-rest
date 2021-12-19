@@ -103,7 +103,7 @@ function validateAPIQuota(apiQuota) {
     return errors;
 }
 
-// Validate bank id"s
+// Validate bank id's
 function validateBanksID(banksId) {
     let errors = [];
     if (typeof banksId === "undefined") {
@@ -124,11 +124,67 @@ function validateBanksID(banksId) {
     return errors;
 }
 
+// Validate vendor id
+function validateVendorID(vendorId) {
+    let errors = [];
+    if (typeof vendorId === "undefined") {
+        errors.push({ error: "vendorId must be defined in request body" });
+    } else {
+        if (vendorId < 1) {
+            errors.push({ error: "vendorId is invalid, must be greater than zero" });
+        }
+    }
+    return errors;
+}
+
+// Validate min invoice date
+function validateMinInvoiceDate(minInvoiceDate) {
+    let errors = [];
+    var validateDate = require("validate-date");
+    if (typeof minInvoiceDate === "undefined") {
+        errors.push({ error: "minInvoiceDate must be defined in request body" });
+    } else {
+        if ((minInvoiceDate.trim().length === 0) || (minInvoiceDate.trim() === "")) {
+            errors.push({ error: "minInvoiceDate can't be null" });
+        }
+        if (minInvoiceDate.trim().length === 10) {
+            errors.push({ error: "minInvoiceDate lenght is invalid, must be 10 characters (YYYY-MM-DD)" });
+        }
+        if (validateDate(minInvoiceDate, responseType = "boolean", dateFormat = "yyyy-mm-dd") == false) {
+            errors.push({ error: "minInvoiceDate have invalid values or format, must be in this format YYYY-MM-DD" });
+        }
+    }
+    return errors;
+}
+
+// Validate max invoice date
+function validateMaxInvoiceDate(maxInvoiceDate) {
+    let errors = [];
+    var validateDate = require("validate-date");
+    if (typeof maxInvoiceDate === "undefined") {
+        errors.push({ error: "maxInvoiceDate must be defined in request body" });
+    } else {
+        if ((maxInvoiceDate.trim().length === 0) || (maxInvoiceDate.trim() === "")) {
+            errors.push({ error: "maxInvoiceDate can't be null" });
+        }
+        if (maxInvoiceDate.trim().length === 10) {
+            errors.push({ error: "maxInvoiceDate lenght is invalid, must be 10 characters (YYYY-MM-DD)" });
+        }
+        if (validateDate(maxInvoiceDate, responseType = "boolean", dateFormat = "yyyy-mm-dd") == false) {
+            errors.push({ error: "maxInvoiceDate have invalid values or format, must be in this format YYYY-MM-DD" });
+        }
+    }
+    return errors;
+}
+
 module.exports = {
     validateCompanyName,
     validateInternalCode,
     validateTaxId,
     validateCurrency,
     validateAPIQuota,
-    validateBanksID
+    validateBanksID,
+    validateVendorID,
+    validateMinInvoiceDate,
+    validateMaxInvoiceDate
 }

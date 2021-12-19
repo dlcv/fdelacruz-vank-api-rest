@@ -4,7 +4,7 @@ const fs = require("fs");
 const https = require("https");
 const schedule = require("node-schedule");
 const { logger } = require("../config/logs");
-const invoiceController = require("../controllers/invoices.controller");
+const helpers = require("../helpers/files")
 
 // Rules for scheduling
 const rule = new schedule.RecurrenceRule();
@@ -40,7 +40,8 @@ const Job = schedule.scheduleJob(rule, function() {
             let msg = "Readed invoices from external CSV file";
             console.log(msg);
             logger.info(msg);
-            invoiceController.processInvoicesFromFile();
+            // invoiceController.processInvoicesFromFile();
+            helpers.processInvoicesFromFile();
         });
     });
 });

@@ -17,15 +17,17 @@ app.use(express.urlencoded({ extended: true }));
 // Parse application/json
 app.use(express.json());
 
-// Routes
-app.use(require("./routes/index.routes"));
-app.use(require("./routes/clients.routes"));
-
 // Database
 require("./config/database");
 
 // Scheduler
 require("./config/scheduler");
+
+// Routes
+app.use(require("./routes/index.routes"));
+app.use(require("./routes/clients.routes"));
+app.use(require("./routes/invoices.routes"));
+app.use(require("./routes/errors.routes"));
 
 // Webserver
 app.listen(process.env.APP_PORT, () => {
