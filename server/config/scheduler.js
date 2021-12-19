@@ -3,7 +3,7 @@ const https = require("https");
 
 const schedule = require("node-schedule");
 
-const invoiceController = require("../controllers/invoice.controller")
+const invoiceController = require("../controllers/invoices.controller")
 
 const rule = new schedule.RecurrenceRule();
 // rule.hour = 0;
