@@ -147,7 +147,7 @@ function validateMinInvoiceDate(minInvoiceDate) {
         if ((minInvoiceDate.trim().length === 0) || (minInvoiceDate.trim() === "")) {
             errors.push({ error: "minInvoiceDate can't be null" });
         }
-        if (minInvoiceDate.trim().length === 10) {
+        if (minInvoiceDate.trim().length !== 10) {
             errors.push({ error: "minInvoiceDate lenght is invalid, must be 10 characters (YYYY-MM-DD)" });
         }
         if (validateDate(minInvoiceDate, responseType = "boolean", dateFormat = "yyyy-mm-dd") == false) {
@@ -167,7 +167,7 @@ function validateMaxInvoiceDate(maxInvoiceDate) {
         if ((maxInvoiceDate.trim().length === 0) || (maxInvoiceDate.trim() === "")) {
             errors.push({ error: "maxInvoiceDate can't be null" });
         }
-        if (maxInvoiceDate.trim().length === 10) {
+        if (maxInvoiceDate.trim().length !== 10) {
             errors.push({ error: "maxInvoiceDate lenght is invalid, must be 10 characters (YYYY-MM-DD)" });
         }
         if (validateDate(maxInvoiceDate, responseType = "boolean", dateFormat = "yyyy-mm-dd") == false) {
