@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 // APPLICATION PORT
-process.env.APP_PORT = process.env.APP_PORT || 3000;
+process.env.APP_PORT = process.env.PORT || 3000;
 
 // ENVIRONMENT
 process.env.APP_ENV = process.env.APP_ENV || "dev";
