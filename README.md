@@ -79,6 +79,11 @@ The request body have validations:
 ## Env variables
 You must set the values of the environment variables, in the root of the project you can find a file called **.env.example** for setting up your own .env file
 
+## Postman collection
+https://go.postman.co/workspace/My-Workspace~e62cc64f-30bc-4453-8b5b-a1087ea67283/collection/13375672-20c4e446-6ddb-4324-8af8-1bb56a6221d2
+
+## Live demo
+
 ## To-do
 - Currency convertion
 - Documentation in OpenAPI
