@@ -33,6 +33,15 @@ Create a new client on the API. You must send in the request body this fields:
 }
 ```
 
+The request body have validations:
+- **companyName** is a string: cannot be null or empty, the string lenght must be between 2 and 50 characters
+- **internalCode** is a string: cannot be null or empty, the string lenght must be between 2 and 10 characters
+- **taxId** is a string: cannot be null or empty, the string lenght must be between 2 and 10 characters
+- **currency** is a string: cannot be null or empty, the string lenght must be 3 characters and only USD, EUR or CLP are valid values
+- **apiQuota** is a numeric: cannot be null or empty, the value must be between 1 and 100 requests
+- **banks** is a array of numeric values: cannot be null or empty, the value of the each element of the array must be unsigned and greather than zero
+
+
 #### GET /api/v1/client/
 Get all the clients registered on the API
 
@@ -48,13 +57,28 @@ Update one of the client registered on the API searching by his ID. You must sen
 }
 ```
 
-#### GET /api/v1/invoice/{currency}
+The request body have validations:
+- **taxId** is a string: cannot be null or empty, the string lenght must be between 2 and 10 characters
+- **currency** is a string: cannot be null or empty, the string lenght must be 3 characters and only USD, EUR or CLP are valid values
+
+#### GET /api/v1/invoice/
 Get all the invoices registered on the API. You must send (optionally) in the request body this fields for filter:
 ```sh
 {
     "vendorId": "34",
     "minInvoiceDate": "2021-12-19",
-    "minInvoiceDate": "2021-12-20",
+    "maxInvoiceDate": "2021-12-20",
 }
 ```
-and optionally the value of currency in the URL (only USD, EUR or CLP)
+
+The request body have validations:
+- **vendorId** is a numeric or string value: cannot be null or empty, the value must be greater than zero
+- **minInvoiceDate** is a string with date format: cannot be null or empty, the string lenght must be 10 characters and have the format YYYY-MM-DD
+- **maxInvoiceDate** is a string with date format: cannot be null or empty, the string lenght must be 10 characters and have the format YYYY-MM-DD
+
+## Env variables
+You must set the values of the environment variables, in the root of the project you can find a file called **.env.example** for setting up your own .env file
+
+## To-do
+- Currency convertion
+- Documentation in OpenAPI
