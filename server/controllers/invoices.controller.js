@@ -1,8 +1,7 @@
-require("dotenv").config();
+// require("dotenv").config();
 const { logger } = require("../config/logs");
 const { Invoice } = require("../config/database");
 const validate = require("../middlewares/validations");
-
 
 // Module
 const invoiceController = {};
@@ -26,13 +25,13 @@ invoiceController.getAllInvoices = async(req, res, next) => {
         if (typeof req.body.minInvoiceDate !== "undefined") {
             errors = errors.concat(validate.validateMinInvoiceDate(minInvoiceDate));
             filter.invoiceDate = [{
-                $gte: minInvoiceDate
+                $gte: new Date(minInvoiceDate)
             }];
         }
         if (typeof req.body.maxInvoiceDate !== "undefined") {
             errors = errors.concat(validate.validateMaxInvoiceDate(maxInvoiceDate));
             filter.invoiceDate = [{
-                $lte: maxInvoiceDate
+                $lte: new Date(maxInvoiceDate)
             }];
         }
 
