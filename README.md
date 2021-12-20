@@ -93,7 +93,7 @@ The request body have validations:
 You must set the values of the environment variables, in the root of the project you can find a file called **.env.example** for setting up your own .env file locally
 
 ## Postman collection
-https://go.postman.co/workspace/My-Workspace~e62cc64f-30bc-4453-8b5b-a1087ea67283/collection/13375672-e15090e7-ae97-4196-a188-48bab31d4cb2
+https://www.getpostman.com/collections/3a85bdb288b40eb2e367
 
 ## Live demo
 https://fdelacruz-vank-api.herokuapp.com/
